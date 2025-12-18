@@ -161,10 +161,6 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-
-# exclude terraform backend b/c different users will choose different backends
-backend.tf
-
 .idea
 *.iml
 terraform-docs

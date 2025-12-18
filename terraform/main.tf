@@ -1,5 +1,5 @@
 module "fourkeys" {
-  source              = "../modules/fourkeys"
+  source              = "./modules/fourkeys"
   project_id          = var.project_id
   enable_apis         = var.enable_apis
   region              = var.region
