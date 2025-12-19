@@ -39,7 +39,7 @@ def github_verification(signature, body):
     expected_signature = "sha1="
     try:
         # Get secret from Cloud Secret Manager
-        secret = get_secret(PROJECT_NAME, "event-handler", "latest")
+        secret = get_secret(PROJECT_NAME, "fourkeys-event-handler", "latest")
         # Compute the hashed signature
         hashed = hmac.new(secret, body, sha1)
         expected_signature += hashed.hexdigest()
@@ -58,7 +58,7 @@ def circleci_verification(signature, body):
     expected_signature = "v1="
     try:
         # Get secret from Cloud Secret Manager
-        secret = get_secret(PROJECT_NAME, "event-handler", "latest")
+        secret = get_secret(PROJECT_NAME, "fourkeys-event-handler", "latest")
         # Compute the hashed signature
         hashed = hmac.new(secret, body, 'sha256')
         expected_signature += hashed.hexdigest()
@@ -106,7 +106,7 @@ def simple_token_verification(token, body):
     """
     if not token:
         raise Exception("Token is empty")
-    secret = get_secret(PROJECT_NAME, "event-handler", "latest")
+    secret = get_secret(PROJECT_NAME, "fourkeys-event-handler", "latest")
 
     return secret.decode() == token
 
@@ -120,7 +120,7 @@ def get_secret(project_name, secret_name, version_num):
         name = client.secret_version_path(
             project_name, secret_name, version_num
         )
-        secret = client.access_secret_version(name)
+        secret = client.access_secret_version(request={"name": name})
         return secret.payload.data
     except Exception as e:
         print(e)
@@ -137,7 +137,7 @@ def get_source(headers):
         return "tekton"
 
     if "GitHub-Hookshot" in headers.get("User-Agent", ""):
-        return "github"
+        return "fourkeys-github"
 
     if "Circleci-Event-Type" in headers:
         return "circleci"
@@ -149,7 +149,7 @@ def get_source(headers):
 
 
 AUTHORIZED_SOURCES = {
-    "github": EventSource(
+    "fourkeys-github": EventSource(
         "X-Hub-Signature", github_verification
         ),
     "gitlab": EventSource(

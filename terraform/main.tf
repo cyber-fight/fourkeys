@@ -5,4 +5,6 @@ module "fourkeys" {
   region              = var.region
   bigquery_region     = var.bigquery_region
   parsers             = var.parsers
+  event_handler_container_url = var.event_handler_container_url
+  github_parser_url = var.github_parser_container_url
 }
