@@ -1,5 +1,5 @@
 resource "google_cloud_run_service" "event_handler" {
-  name     = "event-handler"
+  name     = "fourkeys-event-handler"
   project  = var.project_id
   location = var.region
 
@@ -38,7 +38,7 @@ resource "google_cloud_run_service_iam_binding" "event_handler_noauth" {
 
 resource "google_secret_manager_secret" "event_handler" {
   project   = var.project_id
-  secret_id = "event-handler"
+  secret_id = "fourkeys-event-handler"
   replication {
     user_managed {
       replicas {

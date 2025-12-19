@@ -42,8 +42,7 @@ variable "dashboard_container_url" {
   default     = ""
 }
 
-variable "parser_container_urls" {
-  type        = map(any)
-  description = "URL for the parser container images. e.g: {'github': 'gcr.io/youproject/github-parser', 'gitlab': 'gcr.io/youproject/gitlab-parser'} "
-  default     = {}
+variable "github_parser_container_url" {
+  type        = string
+  description = "URL for the github parser container images."
 }

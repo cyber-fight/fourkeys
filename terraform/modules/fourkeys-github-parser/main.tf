@@ -58,7 +58,7 @@ resource "google_cloud_run_service" "github_parser" {
 
 resource "google_pubsub_topic" "github" {
   project = var.project_id
-  name    = "github"
+  name    = "fourkeys-github"
 }
 
 resource "google_pubsub_topic_iam_member" "service_account_editor" {
@@ -70,7 +70,7 @@ resource "google_pubsub_topic_iam_member" "service_account_editor" {
 
 resource "google_pubsub_subscription" "github" {
   project = var.project_id
-  name    = "github"
+  name    = "fourkeys-github"
   topic   = google_pubsub_topic.github.id
 
   push_config {
